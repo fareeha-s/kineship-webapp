@@ -34,7 +34,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
   if (expanded) {
     return (
       <div className="fixed inset-0 bg-gray-900 text-white">
-        <div className="relative">
+        <div className="relative h-full overflow-auto">
           {/* Header with gradient overlay */}
           <div className="h-64 bg-gradient-to-b from-red-600/20 to-gray-900">
             <button 
@@ -51,37 +51,36 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
           </div>
 
           {/* Participants */}
-          <div className="p-6">
-            <div className="flex justify-center space-x-8">
-              {participants.map((participant, i) => (
-                <div 
-                  key={participant.id} 
-                  className="flex flex-col items-center"
-                  style={{
-                    transform: `translateX(${(i - (participants.length - 1) / 2) * 80}px)`,
-                  }}
-                >
-                  <div className="relative">
-                    <div className="absolute -inset-1 animate-pulse rounded-full bg-white/20 backdrop-blur-sm" />
-                    <img
-                      src={participant.avatar}
-                      alt={participant.name}
-                      className="h-16 w-16 rounded-full border-2 border-white object-cover"
-                    />
+          <div className="px-6 py-12">
+            <div className="flex justify-center">
+              <div className="flex -space-x-4">
+                {participants.map((participant) => (
+                  <div 
+                    key={participant.id} 
+                    className="flex flex-col items-center"
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-1 animate-pulse rounded-full bg-white/20 backdrop-blur-sm" />
+                      <img
+                        src={participant.avatar}
+                        alt={participant.name}
+                        className="relative h-16 w-16 rounded-full border-2 border-white object-cover"
+                      />
+                    </div>
+                    <p className="mt-2 text-center text-sm">{participant.name.split(' ')[0]}</p>
                   </div>
-                  <p className="mt-2 text-center text-sm">{participant.name.split(' ')[0]}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Join buttons */}
             <div className="mt-12">
               <h2 className="text-lg mb-4">Join in through:</h2>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-wrap gap-3">
                 {platforms.map((platform) => (
                   <button
                     key={platform}
-                    className="bg-gray-800 rounded-lg py-3 px-4 text-center hover:bg-gray-700"
+                    className="flex-1 min-w-[120px] bg-gray-800 rounded-lg py-3 px-4 text-center hover:bg-gray-700 transition-colors"
                   >
                     {platform}
                   </button>
