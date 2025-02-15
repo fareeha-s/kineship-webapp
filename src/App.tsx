@@ -1,9 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { HashRouter as Router, Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import WorkoutFeed from './components/WorkoutFeed';
-import CalendarView from './components/calendar/CalendarView';
-import Profile from './components/profile/Profile';
-import WorkoutCard from './components/WorkoutCard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -36,6 +34,25 @@ const mockWorkouts = [
   }
 ];
 
+// Placeholder components
+const CalendarView: React.FC = () => (
+  <div className="max-w-2xl mx-auto">
+    <h1 className="text-2xl font-bold text-gray-900 mb-8">Calendar</h1>
+    <div className="bg-white rounded-xl shadow-sm p-6">
+      <p className="text-gray-600">Calendar view coming soon!</p>
+    </div>
+  </div>
+);
+
+const Profile: React.FC = () => (
+  <div className="max-w-2xl mx-auto">
+    <h1 className="text-2xl font-bold text-gray-900 mb-8">Profile</h1>
+    <div className="bg-white rounded-xl shadow-sm p-6">
+      <p className="text-gray-600">Profile view coming soon!</p>
+    </div>
+  </div>
+);
+
 // Workout detail wrapper component
 const WorkoutDetailWrapper = () => {
   const { id } = useParams();
@@ -60,15 +77,17 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <div className="min-h-screen bg-gray-50">
-          <main className="container mx-auto px-4 py-8 pb-24">
-            <Routes>
-              <Route path="/" element={<WorkoutFeed workouts={mockWorkouts} />} />
-              <Route path="/workouts" element={<WorkoutFeed workouts={mockWorkouts} />} />
-              <Route path="/workout/:id" element={<WorkoutDetailWrapper />} />
-              <Route path="/calendar" element={<CalendarView />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<div>404 Not Found</div>} />
-            </Routes>
+          <main className="pb-24">
+            <div className="container mx-auto px-4 py-8">
+              <Routes>
+                <Route path="/" element={<WorkoutFeed workouts={mockWorkouts} />} />
+                <Route path="/workouts" element={<WorkoutFeed workouts={mockWorkouts} />} />
+                <Route path="/workout/:id" element={<WorkoutDetailWrapper />} />
+                <Route path="/calendar" element={<CalendarView />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </div>
           </main>
           <Navigation />
         </div>

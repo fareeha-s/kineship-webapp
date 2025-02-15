@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Home } from 'lucide-react';
 
 interface Participant {
   id: string;
@@ -66,7 +66,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
                     <img
                       src={participant.avatar}
                       alt={participant.name}
-                      className="h-16 w-16 rounded-full border-2 border-white"
+                      className="h-16 w-16 rounded-full border-2 border-white object-cover"
                     />
                   </div>
                   <p className="mt-2 text-center text-sm">{participant.name.split(' ')[0]}</p>
@@ -97,30 +97,30 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
   return (
     <div 
       onClick={() => navigate(`/workout/${id}`)}
-      className="bg-white rounded-lg shadow p-4 mb-4 cursor-pointer hover:shadow-lg transition-shadow"
+      className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
+      <div className="p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Home className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900">{title}</h3>
+              <p className="text-sm text-gray-500">{time} · {location}</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold">{title}</h3>
-            <p className="text-sm text-gray-500">{time} · {location}</p>
+          <div className="flex -space-x-2">
+            {participants.map((participant, index) => (
+              <img
+                key={participant.id}
+                src={participant.avatar}
+                alt={participant.name}
+                className="w-8 h-8 rounded-full border-2 border-white object-cover"
+                style={{ zIndex: participants.length - index }}
+              />
+            ))}
           </div>
-        </div>
-        <div className="flex -space-x-2">
-          {participants.map((participant, index) => (
-            <img
-              key={participant.id}
-              src={participant.avatar}
-              alt={participant.name}
-              className="w-8 h-8 rounded-full border-2 border-white"
-              style={{ zIndex: participants.length - index }}
-            />
-          ))}
         </div>
       </div>
     </div>

@@ -1,40 +1,42 @@
 import React from 'react';
-import { Calendar, Home, User } from 'lucide-react';
+import { Home, Calendar, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const location = useLocation();
 
   const isActive = (path: string) => {
-    return location.pathname === path ? 'text-red-600' : 'text-gray-600';
+    return location.pathname === path || (path === '/workouts' && location.pathname === '/') 
+      ? 'text-red-600' 
+      : 'text-gray-600 hover:text-gray-900';
   };
 
   return (
-    <nav className="bg-white shadow-lg fixed bottom-0 w-full">
-      <div className="container mx-auto px-4">
+    <nav className="bg-white shadow-lg fixed bottom-0 left-0 right-0 border-t border-gray-200">
+      <div className="max-w-2xl mx-auto px-4">
         <div className="flex justify-around py-4">
           <Link 
             to="/workouts" 
-            className={`flex flex-col items-center ${isActive('/workouts')}`}
+            className={`flex flex-col items-center space-y-1 ${isActive('/workouts')}`}
           >
             <Home className="w-6 h-6" />
-            <span className="text-sm mt-1">Home</span>
+            <span className="text-xs font-medium">Home</span>
           </Link>
           
           <Link 
             to="/calendar" 
-            className={`flex flex-col items-center ${isActive('/calendar')}`}
+            className={`flex flex-col items-center space-y-1 ${isActive('/calendar')}`}
           >
             <Calendar className="w-6 h-6" />
-            <span className="text-sm mt-1">Calendar</span>
+            <span className="text-xs font-medium">Calendar</span>
           </Link>
           
           <Link 
             to="/profile" 
-            className={`flex flex-col items-center ${isActive('/profile')}`}
+            className={`flex flex-col items-center space-y-1 ${isActive('/profile')}`}
           >
             <User className="w-6 h-6" />
-            <span className="text-sm mt-1">Profile</span>
+            <span className="text-xs font-medium">Profile</span>
           </Link>
         </div>
       </div>
