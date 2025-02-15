@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import WorkoutFeed from './components/WorkoutFeed';
+import WorkoutCard from './components/WorkoutCard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -64,11 +65,13 @@ const WorkoutDetailWrapper = () => {
   }
 
   return (
-    <WorkoutCard 
-      {...workout}
-      expanded={true}
-      onBack={() => navigate(-1)}
-    />
+    <div className="fixed inset-0">
+      <WorkoutCard 
+        {...workout}
+        expanded={true}
+        onBack={() => navigate(-1)}
+      />
+    </div>
   );
 };
 
